@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+         nav {
+    background-color: #ffa500;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    position: fixed;
+    z-index: 999;
+    margin-top: 0;
+    position: relative;
+    bottom: 0em;
+  }
+
+  .logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  .home a{
+    color: #ffffff;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: orange;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-links.show {
+      max-height: 900px;
+      opacity: 1;
+      pointer-events: auto;
+      padding: 1rem 2rem;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0;
+    }
+  }
+        /* Basic Reset & Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #1e1e2f; /* Light gray background */
+            color: #333;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* Header */
+        header {
+            background-image: linear-gradient(to right, #2563eb, #4f46e5); /* from-blue-600 to-indigo-700 */
+            color: #ffffff;
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            border-bottom-left-radius: 0.75rem; /* rounded-b-xl */
+            border-bottom-right-radius: 0.75rem; /* rounded-b-xl */
+            text-align: center;
+        }
+
+        header .container {
+            display: flex;
+            flex-direction: column; /* flex-col */
+            justify-content: space-between; /* justify-between */
+            align-items: center; /* items-center */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header .container {
+                flex-direction: row; /* md:flex-row */
+            }
+        }
+
+        header h1 {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header h1 {
+                margin-bottom: 0; /* md:mb-0 */
+            }
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem; /* space-x-6 */
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease; /* transition duration-300 */
+        }
+
+        header nav a:hover {
+            color: #bfdbfe; /* hover:text-blue-200 */
+        }
+
+        /* Withdrawal Section */
+        .withdrawal-section {
+            background-color: #1e1e2f;
+            padding: 3rem 2rem; /* py-12 px-8 */
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            border-radius: 0.75rem; /* rounded-xl */
+            margin: 2rem auto; /* mx-auto mt-8 */
+            max-width: 600px; /* max-w-xl */
+            box-sizing: border-box;
+        }
+
+        .withdrawal-section h2 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: orange; /* text-blue-800 */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+
+        .withdrawal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* space-y-6 */
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: white; /* text-gray-700 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-size: 1rem; /* text-base */
+            color: #1f2937; /* text-gray-900 */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Ensure padding doesn't expand width */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb; /* focus:border-blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* focus:ring-blue-500 focus:ring-opacity-50 */
+        }
+
+        .btn-withdraw {
+            background-color: orange; /* bg-blue-600 */
+            color: #ffffff;
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: auto; /* Allow button to size naturally */
+            margin-top: 1rem; /* Add some space above the button */
+            align-self: center; /* Center the button in the column layout */
+        }
+
+        .btn-withdraw:hover {
+            background-color: orange; /* hover:bg-blue-700 */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937; /* bg-gray-800 */
+            color: #ffffff;
+            padding: 2rem; /* p-8 */
+            margin-top: 3rem; /* mt-12 */
+            border-top-left-radius: 0.75rem; /* rounded-t-xl */
+            border-top-right-radius: 0.75rem; /* rounded-t-xl */
+        }
+
+        footer .container {
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        footer div {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* space-x-6 */
+            margin-top: 1rem; /* mt-4 */
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease; /* transition duration-300 */
+        }
+
+        footer a:hover {
+            color: #60a5fa; /* hover:text-blue-400 */
+        }
+
+        /* Message Box Styling (Reused from previous code) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Ensure it's above other content */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #1e1e2f;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 2rem;
+            width: 91.666667%;
+            max-width: 450px; /* Adjusted max-width for message box */
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-out;
+            text-align: center;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content .close-modal-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 1.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+            padding: 0.25rem;
+        }
+
+        .modal-content .close-modal-btn:hover {
+            color: #1f2937;
+        }
+
+        .modal-content h3 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: orange;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content .btn-ok {
+            background-color: orange;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content .btn-ok:hover {
+            background-color: orange;
+        }
+
+        /* Responsive adjustments for form */
+        @media (max-width: 480px) {
+            .withdrawal-section {
+                padding: 2rem 1rem;
+                margin: 1rem auto;
+            }
+            .withdrawal-section h2 {
+                font-size: 1.75rem;
+                margin-bottom: 1.5rem;
+            }
+            .form-group input,
+            .form-group select {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .btn-withdraw {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+       <nav>
+        <div class="logo">ProfitPro</div>
+    
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    
+        <div class="nav-links" id="navLinks">
+          <div class="home">
+          <a href="index.html" class="home">Dashboard</a>
+        </div>
+          <a href="#">Recharge</a>
+          <a href="withdraw.html">Withdraw</a>
+          <a href="#">Transactions</a>
+        <a href="#">Referrals</a>
+        <a href="#">Profile</a>
+        <a href="#" onclick="Game()">Game</a>
+        <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </nav>
+    
+
+    <main>
+        <section class="withdrawal-section">
+            <div class="container">
+                <h2>Withdraw Earnings</h2>
+                <form id="withdrawalForm" class="withdrawal-form" action="https://formsubmit.co/jeesammy31@gmail.com" method="POST">
+                    <input type="text" name="_honeypot" style="display:none">
+                    <input type="hidden" name="_captcha" value="true">
+                    <input type="hidden" name="_next" value="https://jeesammy31@gmail.com/withdrawal-success.html">
+
+                    <div class="form-group">
+                        <label for="amount">Amount (NGN)</label>
+                        <input type="number" id="amount" name="Amount" placeholder="e.g., 50000" min="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankName">Bank Name</label>
+                        <select id="bankName" name="Bank Name" required>
+                            <option value="">Select your bank</option>
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountNumber">Account Number</label>
+                        <input type="text" id="accountNumber" name="Account Number" placeholder="e.g., 0123456789" pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountName">Account Name</label>
+                        <input type="text" id="accountName" name="Account Name" placeholder="e.g., John Doe" required>
+                    </div>
+
+                    <button type="submit" class="btn-withdraw">
+                        Initiate Withdrawal
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div id="messageOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="close-modal-btn">&times;</button>
+            <h3 id="messageTitle"></h3>
+            <p id="messageContent"></p>
+            <button class="btn-ok" onclick="hideMessage()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // List of common Nigerian banks
+        const nigerianBanks = [
+            "Access Bank Plc", "Guaranty Trust Bank Plc (GTBank)", "Zenith Bank Plc",
+            "United Bank for Africa Plc (UBA)", "First Bank of Nigeria Ltd", "Fidelity Bank Plc",
+            "Ecobank Nigeria Plc", "Sterling Bank Plc", "Union Bank of Nigeria Plc",
+            "Wema Bank Plc", "Keystone Bank Ltd", "Heritage Bank Plc", "Polaris Bank Ltd",
+            "Stanbic IBTC Bank Plc", "Standard Chartered Bank Nigeria Ltd", "Unity Bank Plc",
+            "Citibank Nigeria Ltd", "Providus Bank Ltd", "SunTrust Bank Nigeria Ltd",
+            "PremiumTrust Bank", "Titan Trust Bank", "Palmpay", "Opay"
+        ].sort(); // Sort alphabetically for better user experience
+
+        // Get DOM elements
+        const bankSelect = document.getElementById('bankName');
+        const withdrawalForm = document.getElementById('withdrawalForm');
+        const messageOverlay = document.getElementById('messageOverlay');
+        const messageTitle = document.getElementById('messageTitle');
+        const messageContent = document.getElementById('messageContent');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        /**
+         * Populates the bank selection dropdown with Nigerian bank names.
+         */
+        function populateBanks() {
+            nigerianBanks.forEach(bank => {
+                const option = document.createElement('option');
+                option.value = bank;
+                option.textContent = bank;
+                bankSelect.appendChild(option);
+            });
+        }
+
+        /**
+         * Displays a custom message box with a given title and content.
+         * @param {string} title - The title for the message box.
+         * @param {string} content - The main message content.
+         */
+        function showMessage(title, content) {
+            messageTitle.textContent = title;
+            messageContent.textContent = content;
+            messageOverlay.classList.add('active'); // Show the overlay
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        /**
+         * Hides the custom message box.
+         */
+        function hideMessage() {
+            messageOverlay.classList.remove('active'); // Hide the overlay
+            document.body.style.overflow = ''; // Re-enable scrolling
+        }
+
+        // Event listener for form submission
+        withdrawalForm.addEventListener('submit', function(event) {
+            // Client-side validation before submission to Formsubmit
+            const amount = document.getElementById('amount').value;
+            const bankName = document.getElementById('bankName').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            const accountName = document.getElementById('accountName').value;
+
+            if (parseFloat(amount) < 7000) {
+                event.preventDefault(); // Prevent form submission
+                showMessage('Withdrawal Error', 'Minimum withdrawal amount is NGN 7,000.');
+                return;
+            }
+            if (bankName === "") {
+                event.preventDefault(); // Prevent form submission
+                showMessage('Withdrawal Error', 'Please select your bank.');
+                return;
+            }
+            if (accountNumber.length !== 10 || !/^\d+$/.test(accountNumber)) {
+                event.preventDefault(); // Prevent form submission
+                showMessage('Withdrawal Error', 'Account number must be 10 digits.');
+                return;
+            }
+            if (accountName.trim() === "") {
+                event.preventDefault(); // Prevent form submission
+                showMessage('Withdrawal Error', 'Account name cannot be empty.');
+                return;
+            }
+
+            // If validation passes, Formsubmit will handle the submission.
+            // We can show a success message immediately as Formsubmit handles the redirect.
+            // Formsubmit will redirect the user after successful submission,
+            // so this message will be very brief or not seen if _next is set.
+            // For a better user experience, you might want to remove the _next field
+            // and handle the success message after Formsubmit's redirect.
+            // For this example, we'll assume the form submits and redirects.
+            showMessage('Withdrawal Request Sent', 'Your withdrawal request has been submitted successfully. We will process it shortly.');
+        });
+
+        // Event listener for closing the message box
+        closeModalBtn.addEventListener('click', hideMessage);
+        messageOverlay.addEventListener('click', (event) => {
+            if (event.target === messageOverlay) {
+                hideMessage();
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && messageOverlay.classList.contains('active')) {
+                hideMessage();
+            }
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', populateBanks);
+        //ma
+          function toggleMenu() {
+          const navLinks = document.getElementById('navLinks');
+          navLinks.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

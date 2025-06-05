@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding how it works</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #1e1e2f;
+            color: white;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* Header */
+        header {
+            background-image: linear-gradient(to right, #2563eb, #4f46e5); /* from-blue-600 to-indigo-700 */
+            color: #ffffff;
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            border-bottom-left-radius: 0.75rem; /* rounded-b-xl */
+            border-bottom-right-radius: 0.75rem; /* rounded-b-xl */
+            text-align: center;
+        }
+
+        header .container {
+            display: flex;
+            flex-direction: column; /* flex-col */
+            justify-content: space-between; /* justify-between */
+            align-items: center; /* items-center */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header .container {
+                flex-direction: row; /* md:flex-row */
+            }
+        }
+
+        header h1 {
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            header h1 {
+                margin-bottom: 0; /* md:mb-0 */
+            }
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5rem; /* space-x-6 */
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease; /* transition duration-300 */
+        }
+
+        header nav a:hover {
+            color: #bfdbfe; /* hover:text-blue-200 */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #1e1e2f;
+            padding: 5rem 0; /* py-20 */
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            border-radius: 0.75rem; /* rounded-xl */
+            margin: 0rem 1rem; /* mx-4 mt-8 */
+        }
+
+        .hero-section h2 {
+            font-size: 2rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: orange; /* text-blue-800 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .hero-section p {
+            font-size: 1.25rem; /* text-xl */
+            color: white; /* text-gray-600 */
+            margin-bottom: 2rem; /* mb-8 */
+            max-width: 48rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto; /* mx-auto */
+            padding: 0 1rem; /* px-4 */
+        }
+
+        .hero-section .btn-get-started {
+            background-color: orange; /* bg-blue-600 */
+            color: #ffffff;
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* transform hover:scale-105 transition duration-300 */
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero-section .btn-get-started:hover {
+            background-color: #d8681d; /* hover:bg-blue-700 */
+            transform: scale(1.05); /* hover:scale-105 */
+        }
+
+        /* Investment Packages Section */
+        .packages-section {
+            padding: 4rem 0; /* py-16 */
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+        }
+
+        .packages-section h2 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            text-align: center;
+            color: orange; /* text-blue-800 */
+            margin-bottom: 3rem; /* mb-12 */
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .package-grid {
+                grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .package-grid {
+                grid-template-columns: repeat(3, 1fr); /* lg:grid-cols-3 */
+            }
+        }
+
+        /* Package Card */
+        .package-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            padding: 2rem; /* p-8 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* transform hover:scale-105 transition duration-300 */
+            text-align: center; /* Added for consistency with original design */
+        }
+
+        .package-card:hover {
+            transform: scale(1.05); /* hover:scale-105 */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Adjusted shadow for hover */
+        }
+
+        .package-card h3 {
+            font-size: 1.875rem; 
+            font-weight: 700;
+            color: orange;
+            margin-bottom: 1rem;
+        }
+
+        .package-card p {
+            color: #4b5563; /* text-gray-600 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .package-card .return-rate {
+            font-size: 2rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: indigo; /* text-green-600 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            display: block; /* Ensure it takes full width */
+        }
+
+        .package-card .return-rate span {
+            font-size: 1.25rem; /* text-xl */
+            color: #6b7280; /* text-gray-500 */
+            font-weight: 600; /* Added for better visual */
+        }
+
+        .package-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem; /* mb-8 */
+            color: #374151; /* text-gray-700 */
+        }
+
+        .package-card ul li {
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            margin-bottom: 0.75rem; /* space-y-3 */
+        }
+
+        .package-card ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .package-card ul li svg {
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            color: indigo; /* text-green-500 */
+            margin-right: 0.5rem; /* mr-2 */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .package-card .view-details-btn {
+            background-color: orange; /* bg-blue-600 */
+            color: #ffffff;
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            width: 100%; /* w-full */
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .package-card .view-details-btn:hover {
+            background-color: gray; /* hover:bg-blue-700 */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937; /* bg-gray-800 */
+            color: #ffffff;
+            padding: 2rem; /* p-8 */
+            margin-top: 3rem; /* mt-12 */
+            border-top-left-radius: 0.75rem; /* rounded-t-xl */
+            border-top-right-radius: 0.75rem; /* rounded-t-xl */
+        }
+
+        footer .container {
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        footer div {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* space-x-6 */
+            margin-top: 1rem; /* mt-4 */
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease; /* transition duration-300 */
+        }
+
+        footer a:hover {
+            color: #60a5fa; /* hover:text-blue-400 */
+        }
+
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* bg-black bg-opacity-50 */
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            z-index: 50; /* z-50 */
+            opacity: 0; /* Hidden by default */
+            visibility: hidden; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+            padding: 2rem; /* p-8 */
+            width: 91.666667%; /* w-11/12 */
+            max-width: 600px; /* equivalent to md:w-1/2 or lg:w-1/3 on larger screens, adjust as needed */
+            position: relative;
+            transform: scale(0.95); /* transform scale-95 */
+            transition: transform 0.3s ease-out; /* transition-transform duration-300 ease-out */
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .modal-content {
+                width: 50%; /* md:w-1/2 */
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .modal-content {
+                width: 33.333333%; /* lg:w-1/3 */
+            }
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1); /* scale-100 */
+            background:#1e1e2f;
+        }
+
+        .modal-content .close-modal-btn {
+            position: absolute;
+            top: 1rem; /* top-4 */
+            right: 1rem; /* right-4 */
+            background: none;
+            border: none;
+            color: #6b7280; /* text-gray-500 */
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            cursor: pointer;
+            transition: color 0.3s ease; /* hover:text-gray-800 */
+            line-height: 1;
+            padding: 0.25rem; /* Added for better click area */
+        }
+
+        .modal-content .close-modal-btn:hover {
+            color: #1f2937; /* hover:text-gray-800 */
+        }
+
+        .modal-content h3 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: orange; /* text-blue-700 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .modal-content p {
+            color: #ffffff; /* text-gray-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        .modal-content .modal-return {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            color: orange; /* text-green-600 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        .modal-content h4 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem; /* mb-6 */
+            color: silver; /* text-gray-700 */
+        }
+
+        .modal-content ul li {
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            margin-bottom: 0.5rem; /* space-y-2 */
+            color: white;
+        }
+
+        .modal-content ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-content ul li svg {
+            width: 1.25rem; /* w-5 */
+            height: 1.25rem; /* h-5 */
+            color: orange; /* text-blue-500 (changed from green for modal features) */
+            margin-right: 0.5rem; /* mr-2 */
+            flex-shrink: 0;
+        }
+
+        .modal-content .btn-invest-now {
+            background-color: orange; /* bg-blue-600 */
+            color: #ffffff;
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            width: 100%; /* w-full */
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-content .btn-invest-now:hover {
+            background-color: #1d4ed8; /* hover:bg-blue-700 */
+        }
+        nav {
+    background-color: #ffa500;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    position: fixed;
+    width: 87%;
+    z-index: 999;
+  }
+
+  .logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  .home a{
+    color: #ffffff;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: orange;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-links.show {
+      max-height: 900px;
+      opacity: 1;
+      pointer-events: auto;
+      padding: 1rem 2rem;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0;
+    }
+  }
+    </style>
+</head>
+<body class="text-gray-800">
+     <nav>
+        <div class="logo">ProfitPro</div>
+    
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    
+        <div class="nav-links" id="navLinks">
+          <div class="home">
+          <a href="index.html" class="home">Dashboard</a>
+        </div>
+          <a href="#">Recharge</a>
+          <a href="withdraw.html">Withdraw</a>
+          <a href="#">Transactions</a>
+        <a href="#">Referrals</a>
+        <a href="#">Profile</a>
+        <a href="#" onclick="Game()">Game</a>
+        <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </nav>
+    
+
+    <section class="hero-section">
+        <div class="container">
+            <h2>Understanding How the Packages Works</h2>
+            <p>
+                ProfitPay offers carefully crafted investment packages designed to help you achieve your financial goals.
+                Explore our options and start growing your wealth today.
+            </p>
+            <button class="btn-get-started">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <section class="packages-section">
+        <div class="container">
+            <h2>Our Investment Packages</h2>
+            <div class="package-grid">
+                <div class="package-card" data-package="starter">
+                    <h3>Starter Package</h3>
+                    <p>Ideal for beginners looking to dip their toes into investing.</p>
+                    <div class="return-rate">₦5,000 <span class="return-unit">/ 60days</span></div>
+                    <ul>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Low Minimum Investment</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Diversified Portfolio</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Basic Support</li>
+                    </ul>
+                    <button class="view-details-btn" data-package="starter">
+                        View Details
+                    </button>
+                </div>
+
+                <div class="package-card" data-package="growth">
+                    <h3>Growth Package</h3>
+                    <p>Designed for investors seeking moderate returns with balanced risk.</p>
+                    <div class="return-rate">₦10,000 <span class="return-unit">/ 60days</span></div>
+                    <ul>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Medium Investment, Medium Reward</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Active Management</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>High Withdrawal</li>
+                    </ul>
+                    <button class="view-details-btn" data-package="growth">
+                        View Details
+                    </button>
+                </div>
+
+                <div class="package-card" data-package="premium">
+                    <h3>Premium Package</h3>
+                    <p>For experienced investors targeting high returns with diversified assets.</p>
+                    <div class="return-rate">12% <span class="return-unit">/ year</span></div>
+                    <ul>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>High Growth Potential</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Exclusive Investment Opportunities</li>
+                        <li><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Priority Support</li>
+                    </ul>
+                    <button class="view-details-btn" data-package="premium">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <div id="packageModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModal" class="close-modal-btn">&times;</button>
+            <h3 id="modalPackageTitle"></h3>
+            <p id="modalPackageDescription"></p>
+            <div class="modal-return">Expected Return: <span id="modalPackageReturn"></span></div>
+            <h4>Key Features:</h4>
+            <ul id="modalPackageFeatures">
+            </ul>
+            <button class="btn-invest-now">
+                Invest Now
+            </button>
+        </div>
+    </div>
+
+    <script>
+        //nav
+          function toggleMenu() {
+          const navLinks = document.getElementById('navLinks');
+          navLinks.classList.toggle('show');
+        }
+
+        //main dashboard
+        function logout() {
+            alert('Logging out...');
+          }
+          
+          function Game() {
+            alert('This request is coming soon...');
+          }
+      
+          function recharge() {
+            alert('Recharge clicked');
+          }
+      
+          function withdraw() {
+            alert('Withdraw clicked');
+          }
+      
+          function toggleMode() {
+            document.body.classList.toggle('dark');
+          }
+      
+        // Define investment package data
+        const investmentPackages = {
+            starter: {
+                title: "Starter Package",
+                description: "This package is perfect for new investors who want to start building their financial future with minimal risk and a solid foundation.",
+                return: "₦5,000 / 60days",
+                features: [
+                    "Low Minimum Investment: Start with as little as $100.",
+                    "Diversified Portfolio: Invest in a mix of low-risk bonds and stable equities.",
+                    "Basic Support: Access to our online knowledge base and email support.",
+                    "Monthly Reports: Receive simple, easy-to-understand performance reports."
+                ]
+            },
+            growth: {
+                title: "Growth Package",
+                description: "Designed for investors seeking moderate returns with a balanced approach to risk. This package aims for steady capital appreciation.",
+                return: "8% / year",
+                features: [
+                    "Medium Risk, Medium Reward: Balanced portfolio with a mix of equities and growth-oriented assets.",
+                    "Active Portfolio Management: Our experts actively manage your investments to optimize returns.",
+                    "Dedicated Advisor: Get personalized guidance from a financial advisor.",
+                    "Quarterly Reviews: In-depth performance reviews and strategy adjustments."
+                ]
+            },
+            premium: {
+                title: "Premium Package",
+                description: "Our most exclusive package for experienced investors targeting high returns and access to unique investment opportunities.",
+                return: "12% / year",
+                features: [
+                    "High Growth Potential: Aggressive portfolio with exposure to high-growth sectors and emerging markets.",
+                    "Exclusive Investment Opportunities: Access to private equity, venture capital, and alternative investments.",
+                    "Priority Support: 24/7 dedicated support line and direct access to senior advisors.",
+                    "Annual Strategy Sessions: Comprehensive financial planning and strategy sessions."
+                ]
+            }
+        };
+
+        // Get modal elements
+        const packageModal = document.getElementById('packageModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalPackageTitle = document.getElementById('modalPackageTitle');
+        const modalPackageDescription = document.getElementById('modalPackageDescription');
+        const modalPackageReturn = document.getElementById('modalPackageReturn');
+        const modalPackageFeatures = document.getElementById('modalPackageFeatures');
+
+        // Get all "View Details" buttons
+        const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+
+        /**
+         * Opens the modal and populates it with package data.
+         * @param {string} packageName - The key for the investment package data.
+         */
+        function openModal(packageName) {
+            const packageData = investmentPackages[packageName];
+            if (packageData) {
+                modalPackageTitle.textContent = packageData.title;
+                modalPackageDescription.textContent = packageData.description;
+                modalPackageReturn.textContent = packageData.return;
+
+                // Clear previous features
+                modalPackageFeatures.innerHTML = '';
+                // Add new features
+                packageData.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${feature}`;
+                    modalPackageFeatures.appendChild(li);
+                });
+
+                // Show modal overlay and trigger content scale-in
+                packageModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            }
+        }
+
+        /**
+         * Closes the modal with a transition.
+         */
+        function closeModal() {
+            // Trigger content scale-out
+            packageModal.classList.remove('active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+
+            // No need for setTimeout here as the CSS transition handles the visibility
+            // The 'active' class removal will trigger the fade-out and scale-out.
+        }
+
+        // Event listeners for "View Details" buttons
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const packageName = event.target.dataset.package;
+                openModal(packageName);
+            });
+        });
+
+        // Event listener for closing the modal
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the modal content
+        packageModal.addEventListener('click', (event) => {
+            // Check if the click occurred directly on the overlay, not on the modal content
+            if (event.target === packageModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && packageModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+    </script>
+</body>
+</html>

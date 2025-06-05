@@ -1,0 +1,687 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e2f;
+    color: black;
+  }
+  :root{
+    --background-color: indigo;
+    --font-color:white;
+    --font-color2:#00bcd4;
+    --font-big:1.5rem;
+  }
+
+  nav {
+    background-color: #ffa500;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links a {
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0%;
+    height: 2px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  .home a{
+    color: #ffffff;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: orange;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-links.show {
+      max-height: 900px;
+      opacity: 1;
+      pointer-events: auto;
+      padding: 1rem 2rem;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 0;
+    }
+  }
+/*  */
+:root {
+    --primary-color: orange;
+    --background-light: #f5f7fb;
+    --background-dark: #1e1e2f;
+    --text-light: #333;
+    --text-dark: #f5f5f5;
+    --card-light: #fff;
+    --card-dark: #2a2a40;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    background: var(--background-dark);
+    color: white;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.dark {
+    background: var(--background-light);
+    color: var(--text-dark);
+  }
+
+  header {
+    background: var(--card-dark);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  body.dark header {
+    background: var(--card-dark);
+  }
+
+  header h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+  }
+
+  .dashboard {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: ;
+  }
+
+  .sidebar {
+    background: var(--card-dark);
+    padding: 2rem 1rem;
+    border-right: 1px solid #ddd;
+    transition: background 0.3s;
+  }
+
+  body.dark .sidebar {
+    background: var(--card-dark);
+  }
+
+  .sidebar a {
+    display: block;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  body.dark .sidebar a {
+    color: var(--text-dark);
+  }
+  body.dark .How-it-works h6{
+    color: black;
+  }
+
+  .sidebar a:hover {
+    color: var(--primary-color);
+  }
+
+  .content {
+    padding: 2rem;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    background: var(--card-dark);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.dark .card {
+    background: var(--card-dark);
+  }
+
+  .card h2 {
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  body.dark .card h2 {
+    color: var(--text-dark);
+  }
+
+  .card p {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+
+  .btn:hover {
+    background: silver;
+  }
+
+  .toggle-mode {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .toggle-mode:hover {
+    background: var(--primary-color);
+    color: #fff;
+  }
+
+  /* Floating customer service icon */
+  #supportIcon {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    cursor: grab;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+
+  #supportIcon:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+  }
+
+  /* Responsive layout */
+  @media (max-width: 768px) {
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      display: flex;
+      overflow-x: auto;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 1rem;
+    }
+
+    .sidebar a {
+      margin-right: 1rem;
+      white-space: nowrap;
+    }
+
+    .content {
+      padding: 1rem;
+    }
+
+    .card-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .card-container {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar a {
+      font-size: 0.9rem;
+      margin-right: 0.8rem;
+    }
+
+    header h1 {
+      font-size: 1rem;
+      margin-top: 4em;
+    }
+    .sidebar a{
+        opacity: 0%;
+        position: absolute;
+        bottom: 7000%;
+    }
+}
+@media (max-width: 414px) {
+    header h1 {
+        font-size: 1rem;
+        margin-top: 4em;
+      }
+      .button1 button{
+        display: flex;
+    }
+    .sidebar a{
+        opacity: 0%;
+        position: absolute;
+        bottom: 7000%;
+    }
+}
+  /*  */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .footer-section {
+    margin: 20px;
+    flex-basis: 200px;
+  }
+  
+  .footer-section h3 {
+    margin-top: 0;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-section li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-bottom-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .footer-bottom-links li {
+    margin-left: 20px;
+  }
+  
+  .social-media {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .social-media li {
+    margin-right: 20px;
+  }
+  
+  .social-media a {
+    font-size: 24px;
+  }
+  
+  .newsletter form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .newsletter input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .newsletter button {
+    padding: 10px 20px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .newsletter button:hover {
+    background-color: #666;
+  }
+  .How-it-works h6{
+    text-align: center;
+    font-size: 1em;
+    font-weight: 700;
+  }
+
+  .packages img{
+    width: 20%;
+  }
+  .packages{
+    display:flex;
+  }
+  .txt1{
+    display: flex;
+  }
+  .txt3{
+    margin-left: 2em;
+  }
+  .txt2{
+    margin-left: 2em;
+  }
+  .packages2{
+    display:flex;
+    margin-top: 0em;
+  }
+  .packages2 img{
+    width: 20%;
+  }
+  .ittx{
+    margin-top: 1em;
+    background: #262a2a;
+    padding: 1em;
+  }
+  .txt1{
+    color: silver;
+  }
+  .txt1 span{
+    color: orange;
+  }
+  #openModalBtn {
+    background-color: orange;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#openModalBtn:hover {
+    background-color: silver;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Optional: blurs content behind the modal */
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    padding-top: 60px; /* Location of the box */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #1e1e2f;
+    margin: 10% auto; /* 5% from the top and centered */
+    padding: 30px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Maximum width for larger screens */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    position: relative; /* Needed for positioning the close button */
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+/* Close Button */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add Animation (optional) */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+.purchase{
+    justify-content: center;
+    display: flex;
+    justify-self: center;
+    background: orange;
+    color: white;
+    padding: 0.2em 5em;
+    border: none;
+    border-radius: 0.5em;
+    margin-top: 1em;
+    cursor: pointer;
+}
+.modal-content h2{
+    color: orange;
+}
+.modal-content h5{
+    font-style: italic;
+}
+.modal-content p{
+    color: silver;
+}
+ .popup-container {
+            position: fixed; /* Fixed position to overlay content */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+            opacity: 0; /* Start hidden */
+            visibility: hidden; /* Start hidden */
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out; /* Smooth transition for fade */
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        /* Styles for when the pop-up is active/visible */
+        .popup-container.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Styling for the pop-up content box */
+        .popup-content {
+            background-color: #1e1e2f;
+            padding: 2.5rem; /* Increased padding */
+            border-radius: 1rem; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Softer shadow */
+            max-width: 90%; /* Max width for responsiveness */
+            width: 450px; /* Fixed width for larger screens */
+            text-align: center;
+            position: relative;
+            transform: translateY(-50px); /* Start slightly above for slide-in effect */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition for slide and fade */
+            opacity: 0; /* Start hidden */
+        }
+
+        /* Styles for when the pop-up content is active/visible */
+        .popup-container.active .popup-content {
+            transform: translateY(0); /* Slide into place */
+            opacity: 1;
+        }
+
+        /* Animation for hiding the pop-up content */
+        .popup-container.hide .popup-content {
+            transform: translateY(-50px); /* Slide up when hiding */
+            opacity: 0;
+        }
+
+        /* Close button styling */
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem; /* Larger close button */
+            color: #9ca3af; /* Lighter color */
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+            line-height: 1; /* Align text properly */
+            padding: 0.5rem; /* Add padding for easier clicking */
+            border-radius: 0.5rem; /* Rounded corners for the button */
+        }
+
+        .close-button:hover {
+            color: #ef4444; /* Red on hover */
+        }
+
+        /* Message text styling */
+        .popup-message p{
+            font-size: 1.25rem; /* Larger font size */
+            color: #374151; /* Darker text */
+            margin-bottom: 1.5rem; /* More space below message */
+        }
+
+        /* Action button styling (for 'Got it!' button) */
+        .action-button {
+            @apply px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition ease-in-out duration-200;
+            color: white;
+    background: orange;
+    padding: 0.5em 6em;
+    border: none;
+    margin-top: 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+        }
+        .popup-message h3{
+            color: orange;
+        }
+@media (min-width: 414px) {
+    body{
+        
+    }
+}

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfitPro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+    <nav>
+        <div class="logo">ProfitPro</div>
+    
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    
+        <div class="nav-links" id="navLinks">
+          <div class="home">
+          <a href="index.html" class="home">Dashboard</a>
+        </div>
+          <a href="#">Recharge</a>
+          <a href="withdraw.html">Withdraw</a>
+          <a href="#">Transactions</a>
+        <a href="#">Referrals</a>
+        <a href="#">Profile</a>
+        <a href="#" onclick="Game()">Game</a>
+        <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </nav>
+
+      <!-- main -->
+      <header>
+        <h1>ProfitPro Dashboard</h1>
+        <div>
+          <span id="userInfo">Welcome, <strong id="username">User</strong></span>
+         
+        </div>
+      </header>
+    
+  
+    <div class="dashboard">
+      <div class="sidebar">
+        <a href="#">Dashboard</a>
+        <a href="#">Recharge</a>
+        <a href="withdraw.html">Withdraw</a>
+        <a href="#">Transactions</a>
+        <a href="#">Referrals</a>
+        <a href="#">Profile</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </div>
+      <div class="content">
+        <div class="card-container">
+          <div class="card">
+            <h2>Balance</h2>
+            <p id="balance">₦700.00</p>
+          </div>
+          <div class="card">
+            <h2>Total Earned</h2>
+            <p id="earned">₦0.00</p>
+          </div>
+          <div class="card">
+            <h2>Referrals</h2>
+            <p id="referrals">0</p>
+          </div>
+        </div>
+        <div class="button1" style="display: flex; justify-content: center;">
+        <button class="btn" onclick="recharge()" style="margin-right: 1em;">Recharge</button>
+        <button class="btn" onclick="withdraw()">Withdraw</button>
+    </div>
+      </div>
+    </div>
+
+    <div class="How-it-works">
+      <h6 style="margin-bottom: 1em;">Available Packages</h6>
+
+       <div class="ittx">
+   <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 1</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦5000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦116.67</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦7000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn">Invest</button>
+
+   <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span> <h2>Hi!</h2>
+            <p>You are about to purchase a product.</p>
+            <h5>You are adviced to know how your package works, click HOW IT WORKS to know or click PROCEED to continue with your payment</h5>
+            <button class="purchase" ><a href="investment-plan.html" style="color: white;
+    text-decoration: none;">How it works</a></button>
+            <button class="purchase" >Purchase</button>
+        </div>
+    </div>
+
+
+   </div>
+
+  <div class="ittx">
+   <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 2</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦400</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn1">Invest</button>
+   </div>
+
+   
+
+    <div class="ittx">
+   <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 3</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦5000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦400</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn">Invest</button>
+   </div>
+
+  <div class="ittx">
+   <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 4</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦5000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦400</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn">Invest</button>
+   </div>
+
+    <div class="ittx">
+   <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 5</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦5000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦400</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn">Invest</button>
+   </div>
+
+   <div class="ittx">
+  <h5 style="text-align: center;
+    margin-bottom: 1.9%;">Product 6</h5>
+      <div class="packages2">
+    
+        <img src="img/pp.jpg" alt="">
+        <div class="txt1">
+            <div class="txt2">
+            <h5 style="display: grid;
+">Price <span>₦5000</span></h5>
+            <h5 style="display: grid;
+">Daily profit <span>₦400</span></h5>
+            </div>
+            <div class="txt3">
+            <h5 style="display: grid;
+">Revenue <span>₦10,000</span></h5>
+            <h5 style="display: grid;
+">Time <span>60 days</span></h5>
+            </div>
+           
+        </div>
+      </div>
+    </div>
+   <button class="btn" onclick="Invest()" style="padding: 0.35em;" id="openModalBtn">Invest</button>
+   </div>
+    <!-- Draggable Customer Service Icon -->
+    <img src="img/customer care-bot.png" id="supportIcon" alt="Support" title="Customer Support">
+    <!-- end -->
+
+    <footer>
+        <div class="footer-content">
+          <div class="footer-section about">
+            <h3 style="color: orange;">About Us</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+            <ul class="social-media">
+              <li><a href="                                                          
+              <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="                                                           
+              <li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+          <div class="footer-section links">
+            <h3 style="color: orange;">Quick Links</h3>
+            <ul>
+              <li><a href="                
+              <li><a href="#">About</a></li>
+              <li><a href="                    
+              <li><a href="#">Contact</a></li>
+              <li><a href="               
+            </ul>
+          </div>
+          <div class="footer-section contact">
+            <h3 style="color: orange;">Contact Us</h3>
+            <p>Email: <a href="mailto:example@example.com">profitpro@gmail.com</a></p>
+            <p>Phone: +234-456-7890</p>
+            
+          </div>
+          <div class="footer-section newsletter">
+            <h3 style="color: orange;">Newsletter</h3>
+            <p>Subscribe to our newsletter for latest updates.</p>
+            <form>
+              <input type="email" placeholder="Your Email">
+              <button>Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Profitpro. All rights reserved.</p>
+          <ul class="footer-bottom-links">
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="                          
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </div>
+      </footer>
+        <div id="popupContainer" class="popup-container">
+        <div class="popup-content">
+            <button id="closePopupButton" class="close-button">&times;</button>
+            <h3 class="popup-message" style="color: orange;">Dear User</h3>
+            <p class="popup-message">
+                Welcome to ProfitPro, We promise you that this will be a long term project. Your Future is our Piority.
+            </p>
+            <button id="okButton" class="action-button">Got it!</button>
+        </div>
+    </div>
+
+      <script>
+        function toggleMenu() {
+          const navLinks = document.getElementById('navLinks');
+          navLinks.classList.toggle('show');
+        }
+
+        //main dashboard
+        function logout() {
+            alert('Logging out...');
+          }
+          
+          function Game() {
+            alert('This request is coming soon...');
+          }
+      
+          function recharge() {
+            alert('Recharge clicked');
+          }
+      
+          function withdraw() {
+            alert('Withdraw clicked');
+          }
+      
+          function toggleMode() {
+            document.body.classList.toggle('dark');
+          }
+      
+          // Draggable Icon Script
+          const icon = document.getElementById("supportIcon");
+          let isDragging = false;
+          let offset = { x: 0, y: 0 };
+      
+          const startDrag = (e) => {
+            isDragging = true;
+            const rect = icon.getBoundingClientRect();
+            offset.x = (e.clientX || e.touches[0].clientX) - rect.left;
+            offset.y = (e.clientY || e.touches[0].clientY) - rect.top;
+          };
+      
+          const onDrag = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = (e.clientX || e.touches[0].clientX) - offset.x;
+            const y = (e.clientY || e.touches[0].clientY) - offset.y;
+            icon.style.left = x + "px";
+            icon.style.top = y + "px";
+            icon.style.right = "auto";
+            icon.style.bottom = "auto";
+          };
+      
+          const endDrag = () => {
+            isDragging = false;
+          };
+      
+          icon.addEventListener("mousedown", startDrag);
+          icon.addEventListener("touchstart", startDrag);
+      
+          document.addEventListener("mousemove", onDrag);
+          document.addEventListener("touchmove", onDrag, { passive: false });
+      
+          document.addEventListener("mouseup", endDrag);
+          document.addEventListener("touchend", endDrag);
+        
+           // Get the modal
+const modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+const btn = document.getElementById("openModalBtn");
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close-button")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+ // Get references to DOM elements
+        const popupContainer = document.getElementById('popupContainer');
+        const closePopupButton = document.getElementById('closePopupButton');
+        const okButton = document.getElementById('okButton'); // Get the 'Got it!' button
+
+        /**
+         * Shows the pop-up message with a fade-in and slide-down animation.
+         */
+        function showPopup() {
+            // Add 'active' class to trigger fade-in and slide-down
+            popupContainer.classList.add('active');
+            // Remove 'hide' class if it was previously added
+            popupContainer.classList.remove('hide');
+        }
+
+        /**
+         * Hides the pop-up message with a fade-out and slide-up animation.
+         * The 'hide' class is added first to trigger the animation,
+         * then after a delay (matching CSS transition duration), the 'active'
+         * class is removed and visibility is set to hidden.
+         */
+        function hidePopup() {
+            // Add 'hide' class to trigger fade-out and slide-up animation
+            popupContainer.classList.add('hide');
+
+            // After the animation completes, remove 'active' and 'hide' classes
+            // to fully hide the element and reset its state.
+            // The delay should match the CSS transition duration (0.3s).
+            setTimeout(() => {
+                popupContainer.classList.remove('active');
+                popupContainer.classList.remove('hide');
+            }, 300); // 300ms matches the CSS transition duration
+        }
+
+        // Add event listener to the close button inside the pop-up
+        closePopupButton.addEventListener('click', hidePopup);
+
+        // Add event listener to the 'Got it!' button inside the pop-up
+        okButton.addEventListener('click', hidePopup);
+
+        // Optional: Close pop-up when clicking outside the content area
+        popupContainer.addEventListener('click', (event) => {
+            // If the click target is the container itself (not a child of popup-content)
+            if (event.target === popupContainer) {
+                hidePopup();
+            }
+        });
+ 
+        // Automatically show the pop-up after 3 seconds when the page loads
+        window.onload = function() {
+            setTimeout(showPopup, 3000); // 3000 milliseconds = 3 seconds
+        };
+
+
+      </script>
+</body>
+</html>
